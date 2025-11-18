@@ -1,0 +1,10 @@
+New Belt Tier
+
+Add its recipe-category first. Then add the belt tier with all the details from other ones in the correct subfolders.
+Make sure to add the line adding the tiers to the global variable.
+Make sure the files are referenced in data.lua.
+
+New Processing Recipe.
+Only need the procesing_recipes file, the rest is all automatic. If you need to have 0.5 of a product, use min amount and max. 
+Otherwise look up how to use probability.
+Follow same as above, make sure to add to global variable and add the reference to the smelting_recipe_creation file NOT data.lua.

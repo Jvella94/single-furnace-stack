@@ -5,5 +5,10 @@
   "author": "Averax",
   "factorio_version": "2.0",
   "description": "Adds ore processing recipes keyed to belt throughput, toggled between vanilla and Krastorio 2 smelting.",
-  "dependencies": ["base >= 2.0"]
+  "dependencies": [
+    "base >= 2.0",
+    "? space-age",
+    "? k2so-assets",
+    "? Krastorio2-spaced-out"
+  ]
 }

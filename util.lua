@@ -1,6 +1,8 @@
-use_krastorio = settings.startup["use-krastorio-smelting-recipes"].value
-use_space_age = settings.startup["use-space-age-smelting-recipes"].value
+krastorio_found = settings.startup["krastorio-found"].value
+space_age_found = settings.startup["space-age-found"].value
 k2_remove_vanilla_smelting = settings.startup["k2-remove-vanilla-smelting-recipes"].value
+k2_remove_krastorio_smelting = settings.startup["k2-remove-krastorio-smelting-recipes"].value
+furnace_power_level = settings.startup["furnace-power-level-setting"].value
 
 function make_layered_icon(primary_icon, secondary_icon)
     return {{
@@ -27,3 +29,8 @@ end
 
 belt_tiers = {}
 processing_recipes = {}
+furnace_power_level_amounts = {
+    ["Vanilla & Space Age"] = 1,
+    ["Krastorio 2"] = 200,
+    ["Krastorio 2 Doubled"] = 400
+}

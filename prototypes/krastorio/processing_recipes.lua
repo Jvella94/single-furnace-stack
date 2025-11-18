@@ -1,6 +1,7 @@
 local k2_processing_recipes = {{
     name_root = "iron-ore-processing-k2",
-    icon = "__base__/graphics/icons/iron-plate.png",
+    icon = "__Krastorio2Assets__/icons/items/iron-plate.png",
+    order_name = "a[smelting]-a[iron-plate]k2",
     ingredients = {{
         type = "item",
         name = "iron-ore",
@@ -14,7 +15,8 @@ local k2_processing_recipes = {{
     }}
 }, {
     name_root = "copper-ore-processing-k2",
-    icon = "__base__/graphics/icons/copper-plate.png",
+    icon = "__Krastorio2Assets__/icons/items/copper-plate.png",
+    order_name = "a[smelting]-b[copper-plate]k2",
     ingredients = {{
         type = "item",
         name = "copper-ore",
@@ -29,6 +31,7 @@ local k2_processing_recipes = {{
 }, {
     name_root = "stone-to-stone-brick-k2",
     icon = "__base__/graphics/icons/stone-brick.png",
+    order_name = "aa[stone-brick]k2",
     ingredients = {{
         type = "item",
         name = "stone",
@@ -42,7 +45,8 @@ local k2_processing_recipes = {{
     }}
 }, {
     name_root = "iron-plate-to-steel-k2",
-    icon = "__base__/graphics/icons/steel-plate.png",
+    icon = "__Krastorio2Assets__/icons/items/steel-plate.png",
+    order_name = "a[smelting]-c[steel-plate]k2",
     ingredients = {{
         type = "item",
         name = "iron-plate",

@@ -28,7 +28,16 @@ local function duplicate_furnaces(base_name, base_icon_path)
         -- Multiply energy usage
         local energy_val = tonumber(furnace.energy_usage:match("(%d+)"))
         local energy_unit = furnace.energy_usage:match("%d+(%a+)")
-        furnace.energy_usage = tostring(energy_val * (tier.multiplier / 15) * 76.8) .. energy_unit
+        log(furnace_power_level .. " selected for furnace power level setting")
+        if furnace_power_level ~= "Vanilla & Space Age" then
+            furnace.energy_usage =
+                tostring(furnace_power_level_amounts[furnace_power_level] * (tier.speed / 15) * 24) .. energy_unit
+            log("Setting energy usage of " .. furnace.name .. " to " .. furnace.energy_usage ..
+                    " based on custom setting")
+        else
+            furnace.energy_usage = tostring(energy_val * (tier.speed / 15) * 24) .. energy_unit
+            log("Setting energy usage of " .. furnace.name .. " to " .. furnace.energy_usage .. " based on tier speed")
+        end
 
         -- Assign crafting category for tier
         furnace.crafting_categories = {tier.category}

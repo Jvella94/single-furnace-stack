@@ -3,14 +3,24 @@ require("prototypes.krastorio.processing_recipes")
 
 local techs = data.raw["technology"]
 
+local function GetHiddenStatusForRecipe(recipe_name)
+    if k2_remove_vanilla_smelting and (string.find(recipe_name, "vanilla") ~= nil) then
+        return true
+    end
+    if k2_remove_krastorio_smelting and krastorio_found and (string.find(recipe_name, "k2") ~= nil) then
+        return true
+    end
+    return false
+end
+
 local function make_recipe(recipe, tier, index)
-    local mult = tier.multiplier / 15
+    local mult = tier.speed / 15
     local multiplied_ingredients = {}
     for _, ing in pairs(recipe.ingredients) do
         table.insert(multiplied_ingredients, {
             type = "item",
-            name = ing[1],
-            amount = ing[2] * mult
+            name = ing.name,
+            amount = ing.amount * mult
         })
     end
     local multiplied_results = {}
@@ -36,19 +46,19 @@ local function make_recipe(recipe, tier, index)
     else
         order_suffix = string.char(96 + index) -- 'b', 'c', 'd', etc.
     end
+    local recipe_hidden = GetHiddenStatusForRecipe(recipe.name_root)
     return {
         type = "recipe",
         name = recipe.name_root .. "-" .. tier.shortname,
         localised_name = {"recipe-name." .. recipe.name_root .. "-" .. tier.shortname},
         category = tier.category,
         enabled = false,
-        hidden = k2_remove_vanilla_smelting and string.find(recipe.name_root, "vanilla"),
+        hidden = k2_remove_vanilla_smelting and (string.find(recipe.name_root, "vanilla") ~= nil),
         energy_required = 1,
         ingredients = multiplied_ingredients,
         results = multiplied_results,
-        order = "[" .. recipe.results[1].name .. "]" .. order_suffix,
-        icons = make_layered_icon("__base__/graphics/icons/" .. recipe.results[1].name:gsub("_", "-") .. ".png",
-            tier.icon)
+        order = recipe.order_name .. order_suffix,
+        icons = make_layered_icon(recipe.icon, tier.icon)
     }
 end
 
@@ -63,7 +73,7 @@ local function create_smelting_recipes(recipe)
         end
         local recipe_created = make_recipe(recipe, tier, index)
         if tier.previous_tier_suffix == nil then
-            recipe.enabled = true
+            recipe_created.enabled = true
         end
         table.insert(tiered_recipes, recipe_created)
     end

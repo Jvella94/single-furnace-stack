@@ -1,6 +1,7 @@
 local vanilla_processing_recipes = {{
     name_root = "iron-ore-processing-vanilla",
     icon = "__base__/graphics/icons/iron-plate.png",
+    order_name = "a[smelting]-a[iron-plate]",
     ingredients = {{
         type = "item",
         name = "iron-ore",
@@ -14,6 +15,7 @@ local vanilla_processing_recipes = {{
 }, {
     name_root = "copper-ore-processing-vanilla",
     icon = "__base__/graphics/icons/copper-plate.png",
+    order_name = "a[smelting]-b[copper-plate]",
     ingredients = {{
         type = "item",
         name = "copper-ore",
@@ -27,6 +29,8 @@ local vanilla_processing_recipes = {{
 }, {
     name_root = "stone-to-stone-brick-vanilla",
     icon = "__base__/graphics/icons/stone-brick.png",
+    order_name = "aa[stone-brick]",
+    order_prefix = "aa",
     ingredients = {{
         type = "item",
         name = "stone",
@@ -40,15 +44,16 @@ local vanilla_processing_recipes = {{
 }, {
     name_root = "iron-plate-to-steel-vanilla",
     icon = "__base__/graphics/icons/steel-plate.png",
+    order_name = "a[smelting]-c[steel-plate]",
     ingredients = {{
         type = "item",
         name = "iron-plate",
-        amount = 5
+        amount = 15
     }},
     results = {{
         type = "item",
         name = "steel-plate",
-        amount = 1
+        amount = 3
     }}
 }}
 for _, recipe in ipairs(vanilla_processing_recipes) do
