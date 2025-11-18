@@ -1,0 +1,9 @@
+{
+  "name": "single-furnace-stack",
+  "version": "1.0.0",
+  "title": "Single Furnace Stack",
+  "author": "Averax",
+  "factorio_version": "2.0",
+  "description": "Adds ore processing recipes keyed to belt throughput, toggled between vanilla and Krastorio 2 smelting.",
+  "dependencies": ["base >= 2.0"]
+}
