@@ -3,6 +3,7 @@ New Belt Tier
 Add its recipe-category first. Then add the belt tier with all the details from other ones in the correct subfolders.
 Make sure to add the line adding the tiers to the global variable.
 Make sure the files are referenced in data.lua.
+In localisation, add a section for each tier with a localisation line for each potential mod suffix.
 
 New Processing Recipe.
 Only need the procesing_recipes file, the rest is all automatic. If you need to have 0.5 of a product, use min amount and max. 

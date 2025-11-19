@@ -1,6 +1,7 @@
 -- Helpers
 require("util")
--- Need to add categories first
+
+-- Add categories first
 require("prototypes.vanilla.recipe-categories")
 if (space_age_found) then
     require("prototypes.space-age.recipe-categories")
@@ -18,7 +19,7 @@ if (krastorio_found) then
     require("prototypes.krastorio.belt-tiers")
 end
 
--- Finally, furnaces and recipes
-require("smelting_recipe_creation")
+-- Finally, recipes and furnaces
+require("prototypes.smelting-recipe-creation")
 
 require("prototypes.create-furnaces")

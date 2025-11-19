@@ -1,19 +1,31 @@
-require("prototypes.vanilla.processing_recipes")
-require("prototypes.krastorio.processing_recipes")
+require("prototypes.vanilla.processing-recipes")
+require("prototypes.krastorio.processing-recipes")
 
 local techs = data.raw["technology"]
 
 local function GetHiddenStatusForRecipe(recipe_name)
-    if k2_remove_vanilla_smelting and (string.find(recipe_name, "vanilla") ~= nil) then
+
+    if space_age_found == false and (string.find(recipe_name, "sa") ~= nil) then
         return true
     end
-    if k2_remove_krastorio_smelting and krastorio_found and (string.find(recipe_name, "k2") ~= nil) then
+    if krastorio_found == false and (string.find(recipe_name, "k2") ~= nil) then
         return true
+    end
+    if krastorio_found then
+        if k2_remove_vanilla_smelting and (string.find(recipe_name, "vanilla") ~= nil) then
+            return true
+        end
+        if k2_remove_vanilla_smelting and (string.find(recipe_name, "sa") ~= nil) then
+            return true
+        end
+        if k2_remove_krastorio_smelting and (string.find(recipe_name, "k2") ~= nil) then
+            return true
+        end
     end
     return false
 end
 
-local function make_recipe(recipe, tier, index)
+local function MakeSmeltingRecipe(recipe, tier, index)
     local mult = tier.speed / 15
     local multiplied_ingredients = {}
     for _, ing in pairs(recipe.ingredients) do
@@ -26,6 +38,7 @@ local function make_recipe(recipe, tier, index)
     local multiplied_results = {}
     for _, res in pairs(recipe.results) do
         if res.amount_min and res.amount_max then
+            debugLog("Multiplying min/max result for " .. res.name .. " by " .. mult)
             table.insert(multiplied_results, {
                 type = "item",
                 name = res.name,
@@ -33,6 +46,7 @@ local function make_recipe(recipe, tier, index)
                 amount_max = res.amount_max * mult
             })
         else
+            debugLog("Multiplying fixed result for " .. res.name .. " by " .. mult)
             table.insert(multiplied_results, {
                 type = "item",
                 name = res.name,
@@ -62,7 +76,7 @@ local function make_recipe(recipe, tier, index)
     }
 end
 
-local function create_smelting_recipes(recipe)
+local function CreateTieredSmeltingRecipes(recipe)
     local tiered_recipes = {}
     for index, tier in ipairs(belt_tiers) do
         if techs[tier.belt_tech] then
@@ -71,7 +85,7 @@ local function create_smelting_recipes(recipe)
                 recipe = recipe.name_root .. "-" .. tier.shortname
             })
         end
-        local recipe_created = make_recipe(recipe, tier, index)
+        local recipe_created = MakeSmeltingRecipe(recipe, tier, index)
         if tier.previous_tier_suffix == nil then
             recipe_created.enabled = true
         end
@@ -82,7 +96,7 @@ end
 
 local recipes_to_add = {}
 for _, recipe in ipairs(processing_recipes) do
-    local tiered_recipes = create_smelting_recipes(recipe)
+    local tiered_recipes = CreateTieredSmeltingRecipes(recipe)
     for _, recipe in ipairs(tiered_recipes) do
         table.insert(recipes_to_add, recipe)
     end

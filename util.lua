@@ -1,8 +1,9 @@
-krastorio_found = settings.startup["krastorio-found"].value
-space_age_found = settings.startup["space-age-found"].value
+krastorio_found = mods["Krastorio2-spaced-out"]
+space_age_found = mods["space-age"]
 k2_remove_vanilla_smelting = settings.startup["k2-remove-vanilla-smelting-recipes"].value
 k2_remove_krastorio_smelting = settings.startup["k2-remove-krastorio-smelting-recipes"].value
 furnace_power_level = settings.startup["furnace-power-level-setting"].value
+debug_enabled = settings.startup["enable-debug-messages"].value
 
 function make_layered_icon(primary_icon, secondary_icon)
     return {{
@@ -24,6 +25,12 @@ function printTable(t, indent)
         else
             log(formatting .. tostring(v))
         end
+    end
+end
+
+function debugLog(logLine)
+    if debug_enabled then
+        log(logLine)
     end
 end
 

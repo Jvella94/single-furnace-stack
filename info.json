@@ -9,6 +9,7 @@
     "base >= 2.0",
     "? space-age",
     "? k2so-assets",
-    "? Krastorio2-spaced-out"
+    "? Krastorio2-spaced-out",
+    "! Krastorio2"
   ]
 }
