@@ -4,12 +4,12 @@ Single Furnace Stack adds tiered furnace items, entities and smelting recipes ke
 
 Quick references:
 
-- Mod manifest: ['info.json'](info.json)
-- Main data loader: ['data.lua'](data.lua)
+- Mod manifest: [`info.json`](info.json)
+- Main data loader: [`data.lua`](data.lua)
 - Recipe creation: [`prototypes/smelting-recipe-creation.lua`](prototypes/smelting-recipe-creation.lua)
 - Furnace creation: [`prototypes/create-furnaces.lua`](prototypes/create-furnaces.lua)
 - Settings: [`settings.lua`](settings.lua)
-- Guidance for adding content: ['AddingContent.md'](AddingContent.md)
+- Guidance for adding content: [`AddingContent.md`](AddingContent.md)
 
 Installation
 
