@@ -1,5 +1,6 @@
 -- Helpers
-require("util")
+require("settingsutil")
+require("datautil")
 
 -- Add categories first
 require("prototypes.vanilla.recipe-categories")

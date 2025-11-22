@@ -1,11 +1,15 @@
-krastorio_found = mods["Krastorio2-spaced-out"]
-space_age_found = mods["space-age"]
+krastorio_found = mods["Krastorio2-spaced-out"] ~= nil
+space_age_found = mods["space-age"] ~= nil
 k2_remove_vanilla_smelting = settings.startup["k2-remove-vanilla-smelting-recipes"].value
 k2_remove_krastorio_smelting = settings.startup["k2-remove-krastorio-smelting-recipes"].value
 furnace_power_level = settings.startup["furnace-power-level-setting"].value
 debug_enabled = settings.startup["enable-debug-messages"].value
 
-function make_layered_icon(primary_icon, secondary_icon)
+base_belt_speed = 15
+belt_tiers = {}
+processing_recipes = {}
+
+function makeLayeredIcon(primary_icon, secondary_icon)
     return {{
         icon = primary_icon
     }, {
@@ -34,10 +38,21 @@ function debugLog(logLine)
     end
 end
 
-belt_tiers = {}
-processing_recipes = {}
-furnace_power_level_amounts = {
-    ["Vanilla & Space Age"] = 1,
-    ["Krastorio 2"] = 200,
-    ["Krastorio 2 Doubled"] = 400
-}
+function getBaseKeyFromCombinedString(combinedString)
+    if type(combinedString) ~= "string" then
+        debugLog("Expected string but got " .. type(combinedString))
+        printTable(combinedString)
+    end
+    local trimmed = combinedString:match("^(.-) %(")
+    debugLog("Trimmed '" .. combinedString .. "' to '" .. tostring(trimmed) .. "'")
+    return trimmed or combinedString
+end
+
+function findBeltTierIndexBySuffix(suffix)
+    for i, tier in ipairs(belt_tiers) do
+        if tier.suffix == suffix then
+            return i
+        end
+    end
+    return nil
+end

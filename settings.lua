@@ -1,10 +1,12 @@
+require("settingsutil")
+
 -- Vanilla Settings
 data.extend({{
     type = "string-setting",
     name = "furnace-power-level-setting",
     setting_type = "startup",
-    default_value = "Vanilla & Space Age",
-    allowed_values = {"Vanilla & Space Age", "Krastorio 2", "Krastorio 2 Doubled"},
+    default_value = vanilla_Name,
+    allowed_values = returnTableKeys(furnace_power_level_amounts),
     order = "a"
 }, {
     type = "bool-setting",
@@ -12,6 +14,13 @@ data.extend({{
     setting_type = "startup",
     default_value = true,
     order = "b"
+}, {
+    type = "string-setting",
+    name = "ingredient-amount-multiplier",
+    setting_type = "startup",
+    default_value = returnVanillaNameWithValue(ingredient_multipliers),
+    allowed_values = returnTableKeysWithValue(ingredient_multipliers),
+    order = "c"
 }})
 
 -- Krastorio 2 Spaced Out Settings
@@ -19,7 +28,7 @@ data:extend({{
     type = "bool-setting",
     name = "k2-remove-vanilla-smelting-recipes",
     setting_type = "startup",
-    default_value = mods["Krastorio2-spaced-out"],
+    default_value = mods["Krastorio2-spaced-out"] ~= nil,
     hidden = mods["Krastorio2-spaced-out"] == nil,
     order = "ka"
 }, {
@@ -28,6 +37,6 @@ data:extend({{
     setting_type = "startup",
     default_value = false,
     hidden = mods["Krastorio2-spaced-out"] == nil,
-    order = "ka"
+    order = "kb"
 }})
 

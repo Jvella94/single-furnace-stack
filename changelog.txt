@@ -1,0 +1,16 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.1.0
+Date: 2025-11-22
+
+  Features:
+    - Added furnace ingredient multiplier setting.
+
+  Bugfixes:
+    - Fixed setting visibility for Krastorio.
+    - Added localised names and descriptions for settings.
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2025-11-20
+
+    Features:
+     - Initial Release

@@ -16,6 +16,7 @@ local furnaces = {{
 }}
 
 local function duplicate_furnaces(base_name, base_icon_path)
+    local furnace_power_level_chosen = furnace_power_level_amounts[furnace_power_level]
     local base_entity = data.raw["furnace"][base_name]
     if not base_entity then
         error("Furnace prototype '" .. base_name .. "' not found")
@@ -25,19 +26,14 @@ local function duplicate_furnaces(base_name, base_icon_path)
         furnace.name = base_name .. "-" .. tier.suffix
         furnace.localised_name = {"entity-name." .. base_name .. "-" .. tier.suffix}
 
-        -- Multiply energy usage
-        local energy_val = tonumber(furnace.energy_usage:match("(%d+)"))
+        -- Adjust energy usage
+        local old_energy_val = tonumber(furnace.energy_usage:match("(%d+)"))
+        local new_energy_val = furnace_power_level_chosen.fixed_value and furnace_power_level_chosen.energy or
+                                   old_energy_val
+
         local energy_unit = furnace.energy_usage:match("%d+(%a+)")
-        log(furnace_power_level .. " selected for furnace power level setting")
-        if furnace_power_level ~= "Vanilla & Space Age" then
-            furnace.energy_usage =
-                tostring(furnace_power_level_amounts[furnace_power_level] * (tier.speed / 15) * 24) .. energy_unit
-            log("Setting energy usage of " .. furnace.name .. " to " .. furnace.energy_usage ..
-                    " based on custom setting")
-        else
-            furnace.energy_usage = tostring(energy_val * (tier.speed / 15) * 24) .. energy_unit
-            log("Setting energy usage of " .. furnace.name .. " to " .. furnace.energy_usage .. " based on tier speed")
-        end
+        furnace.energy_usage = tostring(new_energy_val * (tier.speed / 15) *
+                                            (48 * furnace_power_level_chosen.multiplier)) .. energy_unit
 
         -- Assign crafting category for tier
         furnace.crafting_categories = {tier.category}
@@ -46,11 +42,12 @@ local function duplicate_furnaces(base_name, base_icon_path)
         furnace.minable.result = furnace.name
 
         -- Layer base icon with belt icon overlay
-        furnace.icons = make_layered_icon(base_icon_path, tier.icon)
+        furnace.icons = makeLayeredIcon(base_icon_path, tier.icon)
 
         data:extend{furnace}
     end
 end
+
 local function create_furnace_items(base_item_name, base_icon_path, order_prefix)
     for index, tier in ipairs(belt_tiers) do
         local order_suffix
@@ -62,7 +59,7 @@ local function create_furnace_items(base_item_name, base_icon_path, order_prefix
         data:extend({{
             type = "item",
             name = base_item_name .. "-" .. tier.suffix,
-            icons = make_layered_icon(base_icon_path, tier.icon),
+            icons = makeLayeredIcon(base_icon_path, tier.icon),
             subgroup = "smelting-machine",
             order = order_prefix .. "[" .. base_item_name .. "]-" .. order_suffix,
             place_result = base_item_name .. "-" .. tier.suffix,
@@ -72,33 +69,64 @@ local function create_furnace_items(base_item_name, base_icon_path, order_prefix
     end
 end
 
-local function create_furnace_recipes(base_item_name, order_prefix)
-    for index, tier in ipairs(belt_tiers) do
-        local ingredients = {}
+-- Calculates the ingredient amount multiplier based on tier speeds
+local function calculateIngredientAmount(belt_tiers, current_suffix, previous_suffix)
+    local current_index = findBeltTierIndexBySuffix(current_suffix)
+    local previous_index = findBeltTierIndexBySuffix(previous_suffix)
 
-        if tier.previous_tier_suffix == nil then
-            -- Basic tier: ingredient is just the original furnace
+    if not current_index or not previous_index then
+        error("Invalid tier suffix provided")
+    end
+
+    local current_speed = belt_tiers[current_index].speed
+    local previous_speed = belt_tiers[previous_index].speed
+
+    local multiplier = math.floor(current_speed / previous_speed)
+    local modulo = current_speed % previous_speed
+
+    return multiplier, modulo
+end
+
+-- Constructs the ingredients list for the given tier info
+local function buildIngredients(base_item_name, tier, multiplier_setting)
+    local ingredients = {}
+    local multiplier = multiplier_setting
+
+    if tier.previous_tier_suffix == nil then
+        -- Basic tier: just the base item with multiplier
+        table.insert(ingredients, {
+            type = "item",
+            name = base_item_name,
+            amount = multiplier
+        })
+    else
+        local prevTierAmount, modulo = calculateIngredientAmount(belt_tiers, tier.suffix, tier.previous_tier_suffix)
+
+        table.insert(ingredients, {
+            type = "item",
+            name = base_item_name .. "-" .. tier.previous_tier_suffix,
+            amount = prevTierAmount
+        })
+
+        if modulo ~= 0 then
             table.insert(ingredients, {
                 type = "item",
                 name = base_item_name,
-                amount = 1
-            })
-        else
-            -- Higher tiers: ingredient is one furnace from previous tier
-            table.insert(ingredients, {
-                type = "item",
-                name = base_item_name .. "-" .. tier.previous_tier_suffix,
-                amount = 1
+                amount = multiplier * (modulo / base_belt_speed)
             })
         end
+    end
 
-        local order_suffix
-        if tier.previous_tier_suffix == nil then
-            order_suffix = "a" -- first/baseline
-        else
-            order_suffix = string.char(97 + index) -- 'b', 'c', 'd', etc.
-        end
+    return ingredients
+end
 
+local function create_furnace_recipes(base_item_name, order_prefix)
+    for index, tier in ipairs(belt_tiers) do
+        local ingredients = {}
+        local multiplier_setting = ingredient_multipliers[getBaseKeyFromCombinedString(
+            settings.startup["ingredient-amount-multiplier"].value)]
+        local ingredients = buildIngredients(base_item_name, tier, multiplier_setting)
+        local order_suffix = tier.previous_tier_suffix and string.char(96 + index) or "a"
         local recipe = {
             type = "recipe",
             name = base_item_name .. "-" .. tier.suffix,
@@ -131,10 +159,6 @@ local function add_unlocks_to_technology(base_item_name)
         end
     end
 end
-
-duplicate_furnaces("stone-furnace", "__base__/graphics/icons/stone-furnace.png")
-duplicate_furnaces("steel-furnace", "__base__/graphics/icons/steel-furnace.png")
-duplicate_furnaces("electric-furnace", "__base__/graphics/icons/electric-furnace.png")
 
 for _, furnace in ipairs(furnaces) do
     duplicate_furnaces(furnace.name, furnace.icon)
