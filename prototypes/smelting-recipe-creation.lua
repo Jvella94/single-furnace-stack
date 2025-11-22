@@ -6,17 +6,17 @@ end
 local techs = data.raw["technology"]
 
 local function GetHiddenStatusForRecipe(recipe_name)
-    if space_age_found == false and (string.find(recipe_name, "sa") ~= nil) then
+    if space_age_found == false and (recipe_name:sub(-#"-sa") == "-sa") then
         return true
     end
     if krastorio_found then
-        if k2_remove_vanilla_smelting and (string.find(recipe_name, "vanilla") ~= nil) then
+        if k2_remove_vanilla_smelting and (recipe_name:sub(-#"-vanilla") == "-vanilla") then
             return true
         end
-        if k2_remove_vanilla_smelting and (string.find(recipe_name, "sa") ~= nil) then
+        if k2_remove_vanilla_smelting and (recipe_name:sub(-#"-sa") == "-sa") then
             return true
         end
-        if k2_remove_krastorio_smelting and (string.find(recipe_name, "k2") ~= nil) then
+        if k2_remove_krastorio_smelting and (recipe_name:sub(-#"-k2") == "-k2") then
             return true
         end
     end
@@ -89,7 +89,6 @@ local function MakeSmeltingRecipe(recipe, tier, index)
             recipe = recipe.name_root .. "-" .. tier.shortname
         })
     end
-
     return {
         type = "recipe",
         name = recipe.name_root .. "-" .. tier.shortname,

@@ -44,6 +44,39 @@ local k2_processing_recipes = {{
         amount_max = 8
     }}
 }, {
+    name_root = "sand-to-glass-k2",
+    icon = "__Krastorio2Assets__/icons/items/glass.png",
+    order_name = "ccc[glass]k2",
+    ingredients = {{
+        type = "item",
+        name = "sand",
+        amount = 15
+    }},
+    results = {{
+        type = "item",
+        name = "glass",
+        amount_min = 7,
+        amount_max = 8
+    }}
+}, {
+    name_root = "wood-to-coke-k2",
+    icon = "__Krastorio2Assets__/icons/items/coke.png",
+    order_name = "ccc[glass]k2",
+    ingredients = {{
+        type = "item",
+        name = "wood",
+        amount = 15
+    }, {
+        type = "item",
+        name = "coal",
+        amount = 9
+    }},
+    results = {{
+        type = "item",
+        name = "kr-coke",
+        amount = 15
+    }}
+}, {
     name_root = "iron-plate-to-steel-k2",
     icon = "__Krastorio2Assets__/icons/items/steel-plate.png",
     order_name = "a[smelting]-c[steel-plate]k2",
