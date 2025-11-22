@@ -35,6 +35,9 @@ local function duplicate_furnaces(base_name, base_icon_path)
         furnace.energy_usage = tostring(new_energy_val * (tier.speed / 15) *
                                             (48 * furnace_power_level_chosen.multiplier)) .. energy_unit
 
+        furnace.energy_source.emissions_per_minute.pollution =
+            furnace.energy_source.emissions_per_minute.pollution * (48 * index)
+
         -- Assign crafting category for tier
         furnace.crafting_categories = {tier.category}
 
