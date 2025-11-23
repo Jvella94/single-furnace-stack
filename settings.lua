@@ -12,7 +12,7 @@ data.extend({{
     type = "bool-setting",
     name = "enable-debug-messages",
     setting_type = "startup",
-    default_value = true,
+    default_value = false,
     order = "b"
 }, {
     type = "string-setting",
@@ -21,6 +21,12 @@ data.extend({{
     default_value = returnVanillaNameWithValue(ingredient_multipliers),
     allowed_values = returnTableKeysWithValue(ingredient_multipliers),
     order = "c"
+}, {
+    type = "bool-setting",
+    name = "furnace-to-assembling-machine-conversion",
+    setting_type = "startup",
+    default_value = false,
+    order = "d"
 }})
 
 -- Krastorio 2 Spaced Out Settings

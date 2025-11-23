@@ -4,6 +4,7 @@ k2_remove_vanilla_smelting = settings.startup["k2-remove-vanilla-smelting-recipe
 k2_remove_krastorio_smelting = settings.startup["k2-remove-krastorio-smelting-recipes"].value
 furnace_power_level = settings.startup["furnace-power-level-setting"].value
 debug_enabled = settings.startup["enable-debug-messages"].value
+conversion_to_assembling_machine = settings.startup["furnace-to-assembling-machine-conversion"].value
 
 base_belt_speed = 15
 belt_tiers = {}
@@ -55,4 +56,22 @@ function findBeltTierIndexBySuffix(suffix)
         end
     end
     return nil
+end
+
+--- Converts a furnace prototype into an assembling machine prototype.
+--- @param furnace_name data.EntityID
+--- @return data.AssemblingMachinePrototype?
+function furnace_to_assembler(furnace_name)
+    local furnace = data.raw.furnace[furnace_name]
+    if not furnace then
+        error("Furnace " .. furnace_name .. " does not exist.")
+        return
+    end
+
+    local assembler = table.deepcopy(furnace) --[[@as data.AssemblingMachinePrototype]]
+    assembler.type = "assembling-machine"
+    assembler.source_inventory_size = nil --- @diagnostic disable-line
+    data.raw.furnace[furnace_name] = nil
+    data:extend({assembler})
+    return assembler
 end

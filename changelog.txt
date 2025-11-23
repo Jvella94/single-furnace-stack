@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.2.0
+Date: 2025-11-23
+
+  Features:
+    - Added furnace to assembler conversion for recipe locking and supporting more than 1 ingredient.
+---------------------------------------------------------------------------------------------------
 Version: 1.1.1
 Date: 2025-11-22
 

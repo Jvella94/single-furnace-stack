@@ -1,6 +1,7 @@
 -- Helpers
 require("settingsutil")
 require("datautil")
+local flib_table = require("__flib__.table")
 
 -- Add categories first
 require("prototypes.vanilla.recipe-categories")
@@ -24,3 +25,12 @@ end
 require("prototypes.smelting-recipe-creation")
 
 require("prototypes.create-furnaces")
+if conversion_to_assembling_machine or krastorio_found then
+    for _, furnace in pairs(data.raw["furnace"]) do
+        for _, tier in ipairs(belt_tiers) do
+            if flib_table.find(furnace.crafting_categories, tier.category) then
+                furnace_to_assembler(furnace.name)
+            end
+        end
+    end
+end

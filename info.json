@@ -1,12 +1,13 @@
 {
   "name": "single-furnace-stack",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "title": "Single Furnace Stack",
   "author": "Averax",
   "factorio_version": "2.0",
-  "description": "Adds ore processing recipes keyed to belt throughput, toggled between vanilla and Krastorio 2 smelting.",
+  "description": "Adds duplicate stone, steel and electric furnaces than can consume an entire tier of ore on a belt per second. Best used with loaders. Optionally converts furnaces to assembling machines for more compatibility with mods like Krastorio 2.",
   "dependencies": [
     "base >= 2.0",
+    "flib >= 0.16.2",
     "? space-age",
     "? k2so-assets",
     "? Krastorio2-spaced-out",
