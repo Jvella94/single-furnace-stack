@@ -45,7 +45,7 @@ local function duplicate_furnaces(base_name, base_icon_path)
         furnace.minable.result = furnace.name
 
         -- Layer base icon with belt icon overlay
-        furnace.icons = makeLayeredIcon(base_icon_path, tier.icon)
+        furnace.icons = makeLayeredIcon(base_icon_path, tier.icon, false)
 
         data:extend{furnace}
     end
@@ -62,7 +62,7 @@ local function create_furnace_items(base_item_name, base_icon_path, order_prefix
         data:extend({{
             type = "item",
             name = base_item_name .. "-" .. tier.suffix,
-            icons = makeLayeredIcon(base_icon_path, tier.icon),
+            icons = makeLayeredIcon(base_icon_path, tier.icon, false),
             subgroup = "smelting-machine",
             order = order_prefix .. "[" .. base_item_name .. "]-" .. order_suffix,
             place_result = base_item_name .. "-" .. tier.suffix,

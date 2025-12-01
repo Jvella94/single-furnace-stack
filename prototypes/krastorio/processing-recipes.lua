@@ -95,6 +95,7 @@ local k2_processing_recipes = {{
         amount = 3
     }}
 }}
+debugLog("Adding Krastorio2 processing recipes")
 for _, recipe in ipairs(k2_processing_recipes) do
     table.insert(processing_recipes, recipe)
 end

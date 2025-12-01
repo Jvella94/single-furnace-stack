@@ -34,15 +34,15 @@ data:extend({{
     type = "bool-setting",
     name = "k2-remove-vanilla-smelting-recipes",
     setting_type = "startup",
-    default_value = mods["Krastorio2-spaced-out"] ~= nil,
-    hidden = mods["Krastorio2-spaced-out"] == nil,
+    default_value = mods["Krastorio2-spaced-out"] ~= nil and mods["Krastorio2"] ~= nil,
+    hidden = mods["Krastorio2-spaced-out"] == nil and mods["Krastorio2"] == nil,
     order = "ka"
 }, {
     type = "bool-setting",
     name = "k2-remove-krastorio-smelting-recipes",
     setting_type = "startup",
     default_value = false,
-    hidden = mods["Krastorio2-spaced-out"] == nil,
+    hidden = mods["Krastorio2-spaced-out"] == nil and mods["Krastorio2"] == nil,
     order = "kb"
 }})
 

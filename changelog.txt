@@ -1,4 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.0
+Date: 2025-12-01
+  Features:
+    - Added support for Krastorio 2 (non Spaced Out version)
+    - Added Planet Muluna Alumina to Alumina plate recipe.
+    - Added support for TurboBelt mod to have turbo belt furnaces.
+    - Added recipes for Crushed Copper and Iron from Crushing Industry mod.
+  Balancing:
+    - None of the recipes are enabled by default now, they must be unlocked via technology.
+    - Removed hand craftable ability from furnace recipes.
+  Bugfixes:
+    - Added localisation for furnace to assembler mod setting.
+    - Fixed missing localisation for all recipes.
+---------------------------------------------------------------------------------------------------
 Version: 1.2.2
 Date: 2025-11-23
 
@@ -36,5 +50,5 @@ Date: 2025-11-22
 Version: 1.0.0
 Date: 2025-11-20
 
-    Features:
-     - Initial Release
+  Features:
+    - Initial Release
