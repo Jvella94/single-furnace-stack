@@ -65,7 +65,7 @@ function getBaseKeyFromCombinedString(combinedString)
         printTable(combinedString)
     end
     local trimmed = combinedString:match("^(.-) %(")
-    debugLog("Trimmed '" .. combinedString .. "' to '" .. tostring(trimmed) .. "'")
+    -- debugLog("Trimmed '" .. combinedString .. "' to '" .. tostring(trimmed) .. "'")
     return trimmed or combinedString
 end
 

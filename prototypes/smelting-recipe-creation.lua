@@ -2,7 +2,7 @@ require("prototypes.vanilla.processing-recipes")
 -- if lignumis_found then
 --     require("prototypes.lignumis.processing-recipes")
 -- end
-if krastorio2SO_found then
+if krastorio2SO_found or krastorio2_found then
     require("prototypes.krastorio.processing-recipes")
 end
 if crushing_industry_found then
@@ -124,8 +124,8 @@ end
 local function CreateTieredSmeltingRecipes(recipe)
     local tiered_recipes = {}
     for index, tier in ipairs(belt_tiers) do
-        debugLog("Creating tiered smelting recipe for tier: " .. tier.shortname .. " for base recipe: " ..
-                     recipe.name_root .. "with index " .. index)
+        -- debugLog("Creating tiered smelting recipe for tier: " .. tier.shortname .. " for base recipe: " ..
+        --              recipe.name_root .. " with index " .. index)
         local recipe_created = MakeSmeltingRecipe(recipe, tier, index)
         table.insert(tiered_recipes, recipe_created)
     end

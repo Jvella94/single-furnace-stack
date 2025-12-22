@@ -1,4 +1,15 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.3.3
+Date: 2025-12-13
+  Bugfixes:
+    - Fixed Krastorio 2 Steel Plate ingredient amount .. again.
+---------------------------------------------------------------------------------------------------
+Version: 1.3.2
+Date: 2025-12-13
+  Bugfixes:
+    - Fixed Krastorio 2 Steel Plate recipe output and ingredient amount.
+    - Fixed Krastorio 2 vanilla recipe visibility setting .
+---------------------------------------------------------------------------------------------------
 Version: 1.3.0
 Date: 2025-12-01
   Features:

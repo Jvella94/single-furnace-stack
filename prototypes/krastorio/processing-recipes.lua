@@ -87,12 +87,13 @@ local k2_processing_recipes = {{
     }, {
         type = "item",
         name = "kr-coke",
-        amount = 9
+        amount = 3
     }},
     results = {{
         type = "item",
         name = "steel-plate",
-        amount = 3
+        amount_min = 7,
+        amount_max = 8
     }}
 }}
 debugLog("Adding Krastorio2 processing recipes")
