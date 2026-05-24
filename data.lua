@@ -3,19 +3,7 @@ require("settingsutil")
 require("datautil")
 local flib_table = require("__flib__.table")
 
--- Add belt tiers (need to be in order of belt speed if possible)
--- if lignumis_found then
---     require("prototypes.lignumis.belt-tiers")
--- end
 require("prototypes.vanilla.belt-tiers")
--- if lignumis_found then
---     -- Adjust previous_tier_suffix for basic belt to point to wood-belt due to new hierarchy
---     for _, belt_tier in ipairs(belt_tiers) do
---         if belt_tier.shortname == "basic" then
---             belt_tier.previous_tier_suffix = "wood-belt"
---         end
---     end
--- end
 if (space_age_found or turbo_belt_found) then
     require("prototypes.space-age.belt-tiers")
 end

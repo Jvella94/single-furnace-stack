@@ -1,7 +1,7 @@
 require("prototypes.vanilla.processing-recipes")
--- if lignumis_found then
---     require("prototypes.lignumis.processing-recipes")
--- end
+if lignumis_found then
+    require("prototypes.lignumis.processing-recipes")
+end
 if krastorio2SO_found or krastorio2_found then
     require("prototypes.krastorio.processing-recipes")
 end
@@ -14,18 +14,21 @@ end
 if space_age_found then
     require("prototypes.space-age.processing-recipes")
 end
+if warp_drive_machine_found then
+    require("prototypes.warp-drive-machine.processing-recipes")
+end
 
 local techs = data.raw["technology"]
 
 local function GetHiddenStatusForRecipe(recipe_name)
-    if space_age_found == false and (recipe_name:sub(-#"-sa") == "-sa") then
+    if space_age_found == false and (recipe_name:sub(- #"-sa") == "-sa") then
         return true
     end
     if krastorio2SO_found or krastorio2_found then
-        if k2_remove_vanilla_smelting and (recipe_name:sub(-#"-vanilla") == "-vanilla") then
+        if k2_remove_vanilla_smelting and (recipe_name:sub(- #"-vanilla") == "-vanilla") then
             return true
         end
-        if k2_remove_krastorio_smelting and (recipe_name:sub(-#"-k2") == "-k2") then
+        if k2_remove_krastorio_smelting and (recipe_name:sub(- #"-k2") == "-k2") then
             return true
         end
     end
@@ -83,7 +86,6 @@ local function GetMultipliedResults(recipe, mult)
 end
 
 local function MakeSmeltingRecipe(recipe, tier, index)
-
     local belt_speed_multiplier = tier.speed / base_belt_speed
     local multiplied_ingredients = GetMultipliedIngredients(recipe, belt_speed_multiplier)
     local multiplied_results = GetMultipliedResults(recipe, belt_speed_multiplier)
@@ -108,7 +110,7 @@ local function MakeSmeltingRecipe(recipe, tier, index)
     return {
         type = "recipe",
         name = recipe.name_root .. "-" .. tier.shortname,
-        localised_name = {"recipe-name." .. recipe.name_root .. "-" .. tier.shortname},
+        localised_name = { "recipe-name." .. recipe.name_root .. "-" .. tier.shortname },
         category = tier.category,
         enabled = false,
         hidden = recipe_hidden,
@@ -117,6 +119,7 @@ local function MakeSmeltingRecipe(recipe, tier, index)
         results = multiplied_results,
         order = recipe.order_name .. order_suffix,
         icons = makeLayeredIcon(icontable, tier.icon, manyicons),
+        allow_productivity = true,
         hide_from_player_crafting = true
     }
 end

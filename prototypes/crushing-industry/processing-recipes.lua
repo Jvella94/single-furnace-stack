@@ -1,46 +1,68 @@
-local crush_processing_recipes = {{
+local crush_processing_recipes = { {
     name_root = "crushed-iron-ore-processing",
-    icons = {{
+    icons = { {
         icon = "__crushing-industry__/graphics/icons/crushed-iron-ore.png",
-        shift = {-12, -12},
+        shift = { -12, -12 },
         scale = 0.4
     }, {
         icon = "__base__/graphics/icons/iron-plate.png",
         draw_background = true
-    }},
-    order_name = "a[smelting]-a[iron-plate]-c[crushed]",
-    ingredients = {{
+    } },
+    order_name = "a[smelting]-a[iron-plate]c[crushed]",
+    ingredients = { {
         type = "item",
         name = "crushed-iron-ore",
         amount = 15
-    }},
-    results = {{
+    } },
+    results = { {
         type = "item",
         name = "iron-plate",
         amount = 15
-    }}
+    } }
 }, {
     name_root = "crushed-copper-ore-processing",
-    icons = {{
+    icons = { {
         icon = "__crushing-industry__/graphics/icons/crushed-copper-ore.png",
-        shift = {-12, -12},
+        shift = { -12, -12 },
         scale = 0.4
     }, {
         icon = "__base__/graphics/icons/copper-plate.png",
         draw_background = true
-    }},
-    order_name = "a[smelting]-b[copper-plate]-c[crushed]",
-    ingredients = {{
+    } },
+    order_name = "a[smelting]-b[copper-plate]c[crushed]",
+    ingredients = { {
         type = "item",
         name = "crushed-copper-ore",
         amount = 15
-    }},
-    results = {{
+    } },
+    results = { {
         type = "item",
         name = "copper-plate",
         amount = 15
-    }}
-}}
+    } }
+}, {
+    name_root = "stone-brick-sand",
+    icons = { {
+        icon = "__crushing-industry__/graphics/icons/sand.png",
+        shift = { -12, -12 },
+        scale = 0.4
+    }, {
+        icon = "__base__/graphics/icons/stone-brick.png",
+        draw_background = true
+    } },
+    order_name = "ab[stone-brick-sand]",
+    ingredients = { {
+        type = "item",
+        name = "sand",
+        amount = 15
+    } },
+    results = { {
+        type = "item",
+        name = "stone-brick",
+        amount_min = 7,
+        amount_max = 8
+    } }
+} }
 debugLog("Adding crushing industry processing recipes")
 for _, recipe in ipairs(crush_processing_recipes) do
     table.insert(processing_recipes, recipe)

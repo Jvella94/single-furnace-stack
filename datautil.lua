@@ -5,6 +5,7 @@ turbo_belt_found = mods["TurboBelt"] ~= nil
 crushing_industry_found = mods["crushing-industry"] ~= nil
 planet_muluna_found = mods["planet-muluna"] ~= nil
 lignumis_found = mods["lignumis"] ~= nil
+warp_drive_machine_found = mods["Warp-Drive-Machine"] ~= nil
 
 k2_remove_vanilla_smelting = settings.startup["k2-remove-vanilla-smelting-recipes"].value
 k2_remove_krastorio_smelting = settings.startup["k2-remove-krastorio-smelting-recipes"].value
@@ -26,17 +27,17 @@ function makeLayeredIcon(icontable, secondary_icon, manyicons)
         table.insert(newicontable, {
             icon = secondary_icon,
             scale = 0.25,
-            shift = {-8, 8}
+            shift = { -8, 8 }
         })
         return newicontable
     else
-        return {{
+        return { {
             icon = icontable
         }, {
             icon = secondary_icon,
             scale = 0.25,
-            shift = {-8, -8}
-        }}
+            shift = { -8, -8 }
+        } }
     end
 end
 
@@ -92,6 +93,6 @@ function furnace_to_assembler(furnace_name)
     assembler.type = "assembling-machine"
     assembler.source_inventory_size = nil --- @diagnostic disable-line
     data.raw.furnace[furnace_name] = nil
-    data:extend({assembler})
+    data:extend({ assembler })
     return assembler
 end
